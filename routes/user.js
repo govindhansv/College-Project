@@ -19,15 +19,19 @@ router.get('/signup',(req,res)=>{
   
 })
 router.post('/signup', (req, res) => {
-  UserHelper.doSignup(req.body, (error, response) => {
-      if (error) {
-          console.error('Error during signup:', error);
+	console.log(req.body);
+	
+	UserHelper.doSignup(req.body).then((response) => {
+        console.log('post');
+          if (!response.signupstatus) {
+          console.error('Error during signup:');
           res.status(500).send('Signup failed. Please try again later.');
       } else {
           console.log('User signed up successfully. Response:', response);
           res.status(200).send('Signup successful!');
       }
-  });
+    })
+	
 });
 
 
